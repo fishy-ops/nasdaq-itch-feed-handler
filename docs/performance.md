@@ -32,7 +32,7 @@ cmake --build build --parallel
 
 The raw report's `work/benchmark.itch` path identifies the original local run; regenerated input has the same bytes regardless of path. Larger cycle counts extend run duration, but still do not increase simultaneous book depth. A realistic next benchmark should replay an authorized full-day sample or add a synthetic workload with many concurrently active orders and a wider symbol distribution.
 
-No optimization case study is claimed: this is a measured standard-container baseline, and no profiling-supported optimization was established. A future change should record the profile, compare repeated runs on the same workload, verify the book against the reference model, and describe memory/performance tradeoffs.
+At this initial baseline stage, no optimization case study had been established. The subsequent profile-guided change and its paired measurements are documented below; the initial measurements remain as historical evidence.
 
 ## Verification status
 
@@ -52,3 +52,7 @@ independent correctness gates, and an unmodified pinned external C++ implementat
 Only measurements recorded by that harness support claims about the peer.
 
 The [initial external results](comparison-baseline/README.md) record all three profiles, including the peer’s speed advantage.
+
+## Profile-guided follow-up
+
+The [level-link and registry-index case study](optimization-level-links/README.md) records the profile, code tradeoffs, new lifetime tests, and paired results against both the original executable and the external peer. Balanced/wide workloads improved 58–59% over the original in median paired throughput; the peer remains faster on those two workloads. The noisy deep-book run is retained without a reliable peer-speedup claim.

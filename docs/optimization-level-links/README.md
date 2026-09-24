@@ -62,3 +62,29 @@ On another host, first build the original commit and create a local baseline
 result, retain that executable, then build the optimized commit. Binary hashes
 are machine/build-specific: use your own original result, not a downloaded
 executable or this host's expected binary hash.
+
+## Recorded three-way results
+
+Updated commit `3c4ad2e` was measured against the preserved original binary from `ac3f652` and the same pinned peer. All three passed the independent decoded-field and exact final-level checks for each workload. Raw nine-round samples are linked below; metadata records clean source status and executable/input SHA-256 values.
+
+| Profile | Updated M msg/s | Original M msg/s | Peer M msg/s | Paired updated/original median (range) | Paired updated/peer median (range) |
+|---|---:|---:|---:|---:|---:|
+| [balanced](balanced.json) | 15.36 | 9.43 | 20.76 | 1.58× (1.49–1.69) | 0.73× (0.69–0.84) |
+| [deep](deep.json) | 11.32 | 5.38 | 9.96 | 1.99× (1.37–2.54) | 1.16× (0.64–1.61) |
+| [wide](wide.json) | 11.67 | 7.29 | 15.82 | 1.59× (1.57–1.68) | 0.73× (0.68–0.79) |
+
+Balanced and wide profiles show repeatable improvements over the original binary within these nine pairs: approximately **58% and 59% higher median paired throughput**. The updated pipeline is still slower than the peer on those profiles (about 73% of peer throughput). These are results for the documented synthetic workload, not a general speed guarantee.
+
+The deep profile had substantial run-to-run variation (updated throughput ranged from 5.83 to 14.37 M messages/s). Its paired updated/peer ratio ranges from 0.64× to 1.61× and crosses 1. The observed median favors the updated implementation, but **this run does not support a reliable claim of outperforming the peer**. No rerun was selected to make that result look stronger.
+
+The timed boundary and semantic differences remain those documented in the [comparison methodology](../../benchmarks/comparison/README.md). Process-memory high-water marks include the input and warmup, so small RSS changes should not be described as book-memory savings.
+
+## Resume and interview wording supported by this evidence
+
+> Built a C++20 Nasdaq ITCH replay engine and validated its decoded fields and full final order-book depth against an independent model and a pinned open-source C++ peer. Used CPU profiling to remove repeated lookups, increasing median paired pipeline throughput by 58–59% over the original implementation on two documented multi-symbol synthetic workloads.
+
+If asked how it compares with another implementation:
+
+> On the same Apple M4 Pro and inputs, my optimized pipeline reached about 73% of the peer’s throughput on the balanced and wide workloads. It preserves strict order-reference, quantity, and directory checks. The peer maintains additional FIFO/BBO state. The comparison helped me identify and measure an optimization without claiming the two systems have identical features.
+
+Local Release and UBSan suites passed 21/21 cases after the change. The exact GitHub workflow results are linked in the final verification record.

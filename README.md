@@ -100,3 +100,7 @@ Add only measurements from the documented workload. No live exchange-to-applicat
 Use the optional [same-host comparison harness](benchmarks/comparison/README.md) to compare against a pinned open-source C++ ITCH implementation. It checks both engines against an independently generated final book before collecting paired timings on multi-symbol, deep-book, and wide-market synthetic workloads.
 
 [Initial comparison results](docs/comparison-baseline/README.md): both engines passed the independent oracle; the external peer was faster on all three synthetic profiles. This is a baseline for engineering improvements, not a claimed speed advantage.
+
+[Profile-guided optimization results](docs/optimization-level-links/README.md): removing repeated lookups improved median paired throughput 58–59% over the original implementation on balanced/wide synthetic workloads. The optimized pipeline achieved about 73% of the peer's throughput on those inputs; the deep-book run was too variable to support a reliable peer-speedup claim.
+
+[Verification and handoff](docs/verification.md) links the passing Linux/macOS, sanitizer, and external-comparison workflow runs.
