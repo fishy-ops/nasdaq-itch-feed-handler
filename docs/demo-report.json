@@ -1,0 +1,14 @@
+{
+  "input": "outputs/itch-feed-handler/tests/fixtures/demo.itch",
+  "complete": true,
+  "error": "",
+  "messages": 16,
+  "bytes": 520,
+  "unsupported": 1,
+  "filtered": 1,
+  "errors": 0,
+  "active_orders": 2,
+  "elapsed_seconds": 4.2042e-05,
+  "messages_per_second": 380571.809143,
+  "by_type": {"A":3,"C":1,"D":1,"E":1,"F":1,"H":2,"P":1,"R":2,"S":2,"U":1,"X":1}
+}

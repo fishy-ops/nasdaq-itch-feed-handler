@@ -1,0 +1,14 @@
+{
+  "input": "work/benchmark.itch",
+  "complete": true,
+  "error": "",
+  "messages": 1000004,
+  "bytes": 32250096,
+  "unsupported": 0,
+  "filtered": 0,
+  "errors": 0,
+  "active_orders": 0,
+  "elapsed_seconds": 0.062499458,
+  "messages_per_second": 16000202.7538,
+  "by_type": {"A":250000,"D":250000,"E":250000,"H":1,"R":1,"S":2,"U":250000}
+}

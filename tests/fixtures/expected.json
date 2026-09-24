@@ -1,0 +1,8 @@
+{
+  "messages": 16,
+  "unsupported": 1,
+  "active_orders": 3,
+  "aapl_bid": "BID 1 150.0100 qty=70 orders=1",
+  "aapl_ask": "ASK 1 150.0500 qty=110 orders=1",
+  "msft_bid": "BID 1 300.0000 qty=80 orders=1"
+}

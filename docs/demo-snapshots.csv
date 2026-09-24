@@ -1,0 +1,5 @@
+message,symbol,state,side,rank,price,quantity,orders
+8,"AAPL",T,B,1,150.0000,150,2
+8,"AAPL",T,S,1,150.0500,120,1
+16,"AAPL",T,B,1,150.0100,70,1
+16,"AAPL",T,S,1,150.0500,110,1

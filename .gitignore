@@ -1,0 +1,6 @@
+build*/
+*.itch
+!tests/fixtures/*.itch
+report.json
+snapshots.csv
+__pycache__/

@@ -1,0 +1,25 @@
+name: C++ CI
+on: [push, pull_request]
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        build_type: [Debug, Release]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+      - run: cmake --build build --parallel 2
+      - run: ctest --test-dir build --output-on-failure
+      - run: ./build/itch_replay --input tests/fixtures/demo.itch --symbol AAPL --report report.json
+  sanitizers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DITCH_SANITIZERS=ON
+      - run: cmake --build build --parallel 2
+      - run: ctest --test-dir build --output-on-failure
+        env:
+          ASAN_OPTIONS: detect_leaks=1
+          UBSAN_OPTIONS: halt_on_error=1:print_stacktrace=1
