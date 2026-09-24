@@ -1,0 +1,41 @@
+name: External comparison correctness
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'benchmarks/comparison/**'
+      - 'tools/generate_workload.py'
+      - 'src/**'
+      - 'include/**'
+      - 'CMakeLists.txt'
+      - '.github/workflows/comparison.yml'
+permissions:
+  contents: read
+jobs:
+  compare:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: bbalouki/itchcpp
+          ref: 8af52e5ebcc1a112749a28510d998f56a031db8f
+          path: .baseline/itchcpp
+      - name: Build unchanged peer and self adapters
+        run: |
+          cmake -S . -B build-compare -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DITCH_COMPARISON_PEER="$PWD/.baseline/itchcpp"
+          cmake --build build-compare --parallel 2
+      - name: Check three independently generated workloads
+        run: |
+          mkdir comparison-results
+          for profile in balanced deep wide; do
+            python3 tools/generate_workload.py "$profile.itch" --profile "$profile" --updates 10000
+            python3 benchmarks/comparison/run.py --build build-compare --input "$profile.itch" --output "comparison-results/$profile.json" --verify-only
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: comparison-correctness-${{ matrix.os }}
+          path: comparison-results/*.json

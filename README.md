@@ -98,3 +98,5 @@ Add only measurements from the documented workload. No live exchange-to-applicat
 ## Baseline comparisons
 
 Use the optional [same-host comparison harness](benchmarks/comparison/README.md) to compare against a pinned open-source C++ ITCH implementation. It checks both engines against an independently generated final book before collecting paired timings on multi-symbol, deep-book, and wide-market synthetic workloads.
+
+[Initial comparison results](docs/comparison-baseline/README.md): both engines passed the independent oracle; the external peer was faster on all three synthetic profiles. This is a baseline for engineering improvements, not a claimed speed advantage.

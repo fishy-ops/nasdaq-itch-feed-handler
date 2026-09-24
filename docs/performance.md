@@ -50,3 +50,5 @@ The initial one-order microbenchmark above is retained as a historical baseline.
 The [comparison harness](../benchmarks/comparison/README.md) adds larger active books,
 independent correctness gates, and an unmodified pinned external C++ implementation.
 Only measurements recorded by that harness support claims about the peer.
+
+The [initial external results](comparison-baseline/README.md) record all three profiles, including the peer’s speed advantage.

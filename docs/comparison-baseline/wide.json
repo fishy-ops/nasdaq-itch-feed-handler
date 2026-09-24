@@ -1,0 +1,421 @@
+{
+  "schema_version": 1,
+  "utc": "2026-09-24T08:49:25.554077+00:00",
+  "hardware": "Apple M4 Pro; 48 GiB RAM; macOS 27.0; unpinned shared host",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "python": "3.13.13 | packaged by conda-forge | (main, Apr  8 2026, 02:29:07) [Clang 19.1.7 ]",
+  "build": {
+    "CMAKE_BUILD_TYPE": "Release",
+    "CMAKE_CXX_COMPILER": "/usr/bin/c++",
+    "CMAKE_CXX_FLAGS": "",
+    "CMAKE_CXX_FLAGS_RELEASE": "-O3 -DNDEBUG",
+    "ITCH_COMPARISON_PEER": "/Users/rishishanigaram/Documents/Codex/2026-09-24/c-market-data-feed-handler-nasdaq/work/peers/itchcpp"
+  },
+  "self_commit": "ac3f652a6d384f0f7931956d72930602680335ac",
+  "self_dirty": false,
+  "peer_repository": "https://github.com/bbalouki/itchcpp",
+  "peer_commit": "8af52e5ebcc1a112749a28510d998f56a031db8f",
+  "input": "wide.itch",
+  "input_bytes": 39604755,
+  "expected_sha256": "8b92f1db10ada26eb3a43ae14636f657e92859cddd082cfe63477ba8235e7807",
+  "workload": {
+    "profile": "wide",
+    "updates": 1000000,
+    "seed": 20260924,
+    "symbols": 256,
+    "orders_per_symbol": 64,
+    "candidate_levels_per_side": 32,
+    "peak_active_orders": 16384,
+    "active_orders": 16384,
+    "messages": 1234500,
+    "by_type": {
+      "A": 187186,
+      "C": 100667,
+      "D": 199522,
+      "E": 250201,
+      "F": 46800,
+      "H": 256,
+      "R": 256,
+      "S": 2,
+      "U": 249705,
+      "X": 199905
+    },
+    "sha256": "f2d415610a1cf4ba1046bb298d5435ce4941326dd3daa23162c7a8a48c00da33",
+    "decoded_digest": 6531115226458852686
+  },
+  "binary_sha256": {
+    "fishy-ops": "d34c004361ac66bf1a1d0ef36b7a310aaaf7e97846d3af7b4bb132003315aa26",
+    "bbalouki-itchcpp": "e50c73a39471eab8836e17a049662159d7c0c5b351a2979eac3e96a473de7b47"
+  },
+  "validation": {
+    "fishy-ops": {
+      "engine": "fishy-ops",
+      "mode": "verify",
+      "messages": 1234500,
+      "sink": 5327173847180522067,
+      "decoded_digest": 6531115226458852686,
+      "seconds": 0,
+      "peak_rss_bytes": 44630016
+    },
+    "bbalouki-itchcpp": {
+      "engine": "bbalouki-itchcpp",
+      "mode": "verify",
+      "messages": 1234500,
+      "sink": 5327173847180522067,
+      "decoded_digest": 6531115226458852686,
+      "seconds": 0,
+      "peak_rss_bytes": 48152576
+    }
+  },
+  "samples": [
+    {
+      "engine": "fishy-ops",
+      "mode": "decode",
+      "messages": 1234500,
+      "sink": 5327173847180522067,
+      "seconds": 0.01306125,
+      "peak_rss_bytes": 41451520,
+      "pair": 0,
+      "position": 0,
+      "messages_per_second": 94516221.64800459
+    },
+    {
+      "engine": "bbalouki-itchcpp",
+      "mode": "decode",
+      "messages": 1234500,
+      "sink": 5327173847180522067,
+      "seconds": 0.009087208,
+      "peak_rss_bytes": 41451520,
+      "pair": 0,
+      "position": 1,
+      "messages_per_second": 135850307.3771394
+    },
+    {
+      "engine": "bbalouki-itchcpp",
+      "mode": "decode",
+      "messages": 1234500,
+      "sink": 5327173847180522067,
+      "seconds": 0.009227666,
+      "peak_rss_bytes": 41451520,
+      "pair": 1,
+      "position": 0,
+      "messages_per_second": 133782475.4385345
+    },
+    {
+      "engine": "fishy-ops",
+      "mode": "decode",
+      "messages": 1234500,
+      "sink": 5327173847180522067,
+      "seconds": 0.012873333,
+      "peak_rss_bytes": 41451520,
+      "pair": 1,
+      "position": 1,
+      "messages_per_second": 95895911.33857875
+    },
+    {
+      "engine": "fishy-ops",
+      "mode": "decode",
+      "messages": 1234500,
+      "sink": 5327173847180522067,
+      "seconds": 0.012781708,
+      "peak_rss_bytes": 41451520,
+      "pair": 2,
+      "position": 0,
+      "messages_per_second": 96583336.1237794
+    },
+    {
+      "engine": "bbalouki-itchcpp",
+      "mode": "decode",
+      "messages": 1234500,
+      "sink": 5327173847180522067,
+      "seconds": 0.009041208,
+      "peak_rss_bytes": 41451520,
+      "pair": 2,
+      "position": 1,
+      "messages_per_second": 136541488.70372188
+    },
+    {
+      "engine": "bbalouki-itchcpp",
+      "mode": "decode",
+      "messages": 1234500,
+      "sink": 5327173847180522067,
+      "seconds": 0.009097417,
+      "peak_rss_bytes": 41451520,
+      "pair": 3,
+      "position": 0,
+      "messages_per_second": 135697857.97441185
+    },
+    {
+      "engine": "fishy-ops",
+      "mode": "decode",
+      "messages": 1234500,
+      "sink": 5327173847180522067,
+      "seconds": 0.014207458,
+      "peak_rss_bytes": 41451520,
+      "pair": 3,
+      "position": 1,
+      "messages_per_second": 86890983.5946726
+    },
+    {
+      "engine": "fishy-ops",
+      "mode": "decode",
+      "messages": 1234500,
+      "sink": 5327173847180522067,
+      "seconds": 0.013130041,
+      "peak_rss_bytes": 41435136,
+      "pair": 4,
+      "position": 0,
+      "messages_per_second": 94021031.61749457
+    },
+    {
+      "engine": "bbalouki-itchcpp",
+      "mode": "decode",
+      "messages": 1234500,
+      "sink": 5327173847180522067,
+      "seconds": 0.009072958,
+      "peak_rss_bytes": 41451520,
+      "pair": 4,
+      "position": 1,
+      "messages_per_second": 136063674.05205667
+    },
+    {
+      "engine": "bbalouki-itchcpp",
+      "mode": "decode",
+      "messages": 1234500,
+      "sink": 5327173847180522067,
+      "seconds": 0.009120333,
+      "peak_rss_bytes": 41451520,
+      "pair": 5,
+      "position": 0,
+      "messages_per_second": 135356899.79740873
+    },
+    {
+      "engine": "fishy-ops",
+      "mode": "decode",
+      "messages": 1234500,
+      "sink": 5327173847180522067,
+      "seconds": 0.012776958,
+      "peak_rss_bytes": 41451520,
+      "pair": 5,
+      "position": 1,
+      "messages_per_second": 96619242.2327756
+    },
+    {
+      "engine": "fishy-ops",
+      "mode": "decode",
+      "messages": 1234500,
+      "sink": 5327173847180522067,
+      "seconds": 0.013012542,
+      "peak_rss_bytes": 41451520,
+      "pair": 6,
+      "position": 0,
+      "messages_per_second": 94870010.79420146
+    },
+    {
+      "engine": "bbalouki-itchcpp",
+      "mode": "decode",
+      "messages": 1234500,
+      "sink": 5327173847180522067,
+      "seconds": 0.009187959,
+      "peak_rss_bytes": 41451520,
+      "pair": 6,
+      "position": 1,
+      "messages_per_second": 134360634.39116347
+    },
+    {
+      "engine": "fishy-ops",
+      "mode": "book",
+      "messages": 1234500,
+      "sink": 5327173847180522067,
+      "seconds": 0.159619708,
+      "peak_rss_bytes": 44072960,
+      "pair": 0,
+      "position": 0,
+      "messages_per_second": 7734007.382095951
+    },
+    {
+      "engine": "bbalouki-itchcpp",
+      "mode": "book",
+      "messages": 1234500,
+      "sink": 5327173847180522067,
+      "seconds": 0.074712,
+      "peak_rss_bytes": 47054848,
+      "pair": 0,
+      "position": 1,
+      "messages_per_second": 16523450.04818503
+    },
+    {
+      "engine": "bbalouki-itchcpp",
+      "mode": "book",
+      "messages": 1234500,
+      "sink": 5327173847180522067,
+      "seconds": 0.073792125,
+      "peak_rss_bytes": 46972928,
+      "pair": 1,
+      "position": 0,
+      "messages_per_second": 16729427.428739855
+    },
+    {
+      "engine": "fishy-ops",
+      "mode": "book",
+      "messages": 1234500,
+      "sink": 5327173847180522067,
+      "seconds": 0.157047625,
+      "peak_rss_bytes": 43597824,
+      "pair": 1,
+      "position": 1,
+      "messages_per_second": 7860672.837300151
+    },
+    {
+      "engine": "fishy-ops",
+      "mode": "book",
+      "messages": 1234500,
+      "sink": 5327173847180522067,
+      "seconds": 0.162261542,
+      "peak_rss_bytes": 43630592,
+      "pair": 2,
+      "position": 0,
+      "messages_per_second": 7608087.441939877
+    },
+    {
+      "engine": "bbalouki-itchcpp",
+      "mode": "book",
+      "messages": 1234500,
+      "sink": 5327173847180522067,
+      "seconds": 0.074995792,
+      "peak_rss_bytes": 46972928,
+      "pair": 2,
+      "position": 1,
+      "messages_per_second": 16460923.56755163
+    },
+    {
+      "engine": "bbalouki-itchcpp",
+      "mode": "book",
+      "messages": 1234500,
+      "sink": 5327173847180522067,
+      "seconds": 0.075935417,
+      "peak_rss_bytes": 47054848,
+      "pair": 3,
+      "position": 0,
+      "messages_per_second": 16257236.066801345
+    },
+    {
+      "engine": "fishy-ops",
+      "mode": "book",
+      "messages": 1234500,
+      "sink": 5327173847180522067,
+      "seconds": 0.158047666,
+      "peak_rss_bytes": 43597824,
+      "pair": 3,
+      "position": 1,
+      "messages_per_second": 7810934.708773238
+    },
+    {
+      "engine": "fishy-ops",
+      "mode": "book",
+      "messages": 1234500,
+      "sink": 5327173847180522067,
+      "seconds": 0.162815416,
+      "peak_rss_bytes": 43581440,
+      "pair": 4,
+      "position": 0,
+      "messages_per_second": 7582205.852055189
+    },
+    {
+      "engine": "bbalouki-itchcpp",
+      "mode": "book",
+      "messages": 1234500,
+      "sink": 5327173847180522067,
+      "seconds": 0.074128083,
+      "peak_rss_bytes": 46956544,
+      "pair": 4,
+      "position": 1,
+      "messages_per_second": 16653607.513363054
+    },
+    {
+      "engine": "bbalouki-itchcpp",
+      "mode": "book",
+      "messages": 1234500,
+      "sink": 5327173847180522067,
+      "seconds": 0.0763005,
+      "peak_rss_bytes": 47071232,
+      "pair": 5,
+      "position": 0,
+      "messages_per_second": 16179448.365344921
+    },
+    {
+      "engine": "fishy-ops",
+      "mode": "book",
+      "messages": 1234500,
+      "sink": 5327173847180522067,
+      "seconds": 0.159244542,
+      "peak_rss_bytes": 43565056,
+      "pair": 5,
+      "position": 1,
+      "messages_per_second": 7752228.016706532
+    },
+    {
+      "engine": "fishy-ops",
+      "mode": "book",
+      "messages": 1234500,
+      "sink": 5327173847180522067,
+      "seconds": 0.161458417,
+      "peak_rss_bytes": 43597824,
+      "pair": 6,
+      "position": 0,
+      "messages_per_second": 7645931.521798582
+    },
+    {
+      "engine": "bbalouki-itchcpp",
+      "mode": "book",
+      "messages": 1234500,
+      "sink": 5327173847180522067,
+      "seconds": 0.074531708,
+      "peak_rss_bytes": 46956544,
+      "pair": 6,
+      "position": 1,
+      "messages_per_second": 16563420.229145963
+    }
+  ],
+  "summary": {
+    "decode": {
+      "fishy-ops": {
+        "median_messages_per_second": 94870010.79420146,
+        "min_messages_per_second": 86890983.5946726,
+        "max_messages_per_second": 96619242.2327756,
+        "median_peak_rss_bytes": 41451520
+      },
+      "bbalouki-itchcpp": {
+        "median_messages_per_second": 135697857.97441185,
+        "min_messages_per_second": 133782475.4385345,
+        "max_messages_per_second": 136541488.70372188,
+        "median_peak_rss_bytes": 41451520
+      },
+      "self_over_peer_paired_ratio": {
+        "median": 0.7060848679681495,
+        "minimum": 0.6403268621311428,
+        "maximum": 0.7168047311446073
+      }
+    },
+    "book": {
+      "fishy-ops": {
+        "median_messages_per_second": 7734007.382095951,
+        "min_messages_per_second": 7582205.852055189,
+        "max_messages_per_second": 7860672.837300151,
+        "median_peak_rss_bytes": 43597824
+      },
+      "bbalouki-itchcpp": {
+        "median_messages_per_second": 16523450.04818503,
+        "min_messages_per_second": 16179448.365344921,
+        "max_messages_per_second": 16729427.428739855,
+        "median_peak_rss_bytes": 46972928
+      },
+      "self_over_peer_paired_ratio": {
+        "median": 0.46806250265787985,
+        "minimum": 0.4552890925267175,
+        "maximum": 0.48045895850179776
+      }
+    }
+  },
+  "compiler_version": "Apple clang version 17.0.0 (clang-1700.6.4.2)\nTarget: arm64-apple-darwin27.0.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin"
+}
