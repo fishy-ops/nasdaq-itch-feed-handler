@@ -75,7 +75,7 @@ cmake --build build-sanitized --parallel
 ctest --test-dir build-sanitized --output-on-failure
 ```
 
-GitHub Actions defines Debug/Release jobs on Linux and macOS and an ASan/UBSan job on Linux. Local verification results are recorded in the performance document; remote CI results are not implied until the workflow runs in your repository.
+GitHub Actions defines Debug/Release jobs on Linux and macOS and an ASan/UBSan job on Linux. Local verification results are recorded in the performance document; the initial Linux/macOS and Linux sanitizer run passed, with the exact run linked in that document.
 
 For an offline build, provide an existing GoogleTest source checkout with `-DFETCHCONTENT_SOURCE_DIR_GOOGLETEST=/path/to/googletest`, or build the application without tests using `-DBUILD_TESTING=OFF`.
 
@@ -94,3 +94,7 @@ Suggested resume wording, after reviewing and understanding the implementation:
 > Built a C++20 Nasdaq ITCH replay engine with displayed order-book reconstruction, deterministic reference-model tests, CSV depth snapshots, JSON diagnostics, and reproducible throughput benchmarks.
 
 Add only measurements from the documented workload. No live exchange-to-application latency or production readiness is claimed.
+
+## Baseline comparisons
+
+Use the optional [same-host comparison harness](benchmarks/comparison/README.md) to compare against a pinned open-source C++ ITCH implementation. It checks both engines against an independently generated final book before collecting paired timings on multi-symbol, deep-book, and wide-market synthetic workloads.

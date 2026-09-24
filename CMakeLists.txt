@@ -37,3 +37,29 @@ if(BUILD_TESTING)
   find_package(Python3 COMPONENTS Interpreter REQUIRED)
   add_test(NAME cli_integration COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tests/cli_test.py $<TARGET_FILE:itch_replay> ${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/demo.itch)
 endif()
+
+# Optional peer adapter: callers fetch the exact revision, never a floating main.
+# Separate executables avoid namespace/ODR collisions between the two libraries.
+add_executable(itch_compare_self benchmarks/comparison/self.cpp)
+target_link_libraries(itch_compare_self PRIVATE itch_core)
+set(ITCH_COMPARISON_PEER "" CACHE PATH "Path to pinned bbalouki/itchcpp checkout")
+if(ITCH_COMPARISON_PEER)
+  find_package(Git REQUIRED)
+  execute_process(COMMAND ${GIT_EXECUTABLE} rev-parse HEAD WORKING_DIRECTORY ${ITCH_COMPARISON_PEER}
+    OUTPUT_VARIABLE PEER_REV OUTPUT_STRIP_TRAILING_WHITESPACE COMMAND_ERROR_IS_FATAL ANY)
+  if(NOT PEER_REV STREQUAL "8af52e5ebcc1a112749a28510d998f56a031db8f")
+    message(FATAL_ERROR "Peer revision mismatch: ${PEER_REV}")
+  endif()
+  add_library(itchcpp_comparison_core STATIC
+    ${ITCH_COMPARISON_PEER}/src/parser.cpp ${ITCH_COMPARISON_PEER}/src/messages.cpp
+    ${ITCH_COMPARISON_PEER}/src/book/l3_book.cpp ${ITCH_COMPARISON_PEER}/src/book/book_manager.cpp)
+  target_include_directories(itchcpp_comparison_core SYSTEM PUBLIC ${ITCH_COMPARISON_PEER}/include)
+  add_executable(itch_compare_peer benchmarks/comparison/itchcpp.cpp)
+  target_link_libraries(itch_compare_peer PRIVATE itchcpp_comparison_core)
+endif()
+if(BUILD_TESTING)
+  add_test(NAME workload_oracle COMMAND ${Python3_EXECUTABLE}
+    ${CMAKE_CURRENT_SOURCE_DIR}/tests/workload_test.py $<TARGET_FILE:itch_compare_self>
+    ${CMAKE_CURRENT_SOURCE_DIR}/tools/generate_workload.py)
+  set_tests_properties(cli_integration workload_oracle PROPERTIES TIMEOUT 120)
+endif()

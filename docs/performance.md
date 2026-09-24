@@ -39,7 +39,14 @@ No optimization case study is claimed: this is a measured standard-container bas
 - Local macOS Release build: passed without project compiler warnings.
 - Local test suite: 17/17 CTest cases passed, including the 5,000-event reference comparison and CLI subprocess checks.
 - Synthetic demo: exact expected AAPL/MSFT books; JSON and CSV outputs inspected.
-- Linux/macOS GitHub Actions and Linux ASan/UBSan jobs: configured, not yet executed on a remote repository.
+- Linux/macOS Debug and Release jobs, plus Linux ASan/UBSan: passed for initial commit `626ac82` in [GitHub Actions run 35976578446](https://github.com/fishy-ops/nasdaq-itch-feed-handler/actions/runs/35976578446).
 - Local macOS Debug build: 17/17 tests passed.
 - Local macOS UndefinedBehaviorSanitizer-only Debug build: 17/17 tests passed with `UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1`.
 - Local AddressSanitizer: blocked by runtime startup on this host. Both the project executable and a trivial standalone `puts` program stalled before `main`, including outside the sandbox with leak detection disabled. This is not reported as a passing ASan check; the Linux CI sanitizer job remains the intended verification path.
+
+## Same-host external comparison
+
+The initial one-order microbenchmark above is retained as a historical baseline.
+The [comparison harness](../benchmarks/comparison/README.md) adds larger active books,
+independent correctness gates, and an unmodified pinned external C++ implementation.
+Only measurements recorded by that harness support claims about the peer.
