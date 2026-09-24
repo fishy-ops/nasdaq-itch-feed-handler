@@ -104,3 +104,20 @@ Keep results favorable to either implementation. A legitimate portfolio statemen
 must name the peer/version, exact workload, hardware, timed boundary, and tradeoff.
 Do not claim that this project beats banks' systems, production feeds, or ITCH
 implementations generally.
+
+## Paired comparison with an earlier self build
+
+Preserve the baseline `itch_compare_self` executable before rebuilding. To compare
+an optimization to the exact original binary and to the peer in the same run:
+
+```sh
+python3 benchmarks/comparison/run.py --build build-compare --input balanced.itch \
+  --output balanced-updated.json --rounds 9 --hardware 'YOUR CPU, RAM, OS' \
+  --initial-executable ../preserved-itch-compare-self \
+  --initial-result ../original-balanced-comparison.json
+```
+
+The runner verifies the original executable and input SHA-256 against the original
+result. Launch order rotates among the three engines. The same independent
+correctness gate applies to all of them. Do this for every profile; retain the
+original measurements even if the optimization underperforms.

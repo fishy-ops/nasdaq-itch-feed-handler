@@ -45,13 +45,21 @@ def cache_values(build):
     return values
 
 
-def compare(build, source, rounds, hardware, verify_only=False):
+def compare(build, source, rounds, hardware, verify_only=False, initial_executable=None, initial_result=None):
     expected_path = source.with_suffix('.expected.json')
     expected = json.loads(expected_path.read_text())
     if sha256(source) != expected['sha256']:
         raise ValueError('Input SHA-256 differs from its oracle manifest')
     executables = {'fishy-ops': build / 'itch_compare_self',
                    'bbalouki-itchcpp': build / 'itch_compare_peer'}
+    initial_metadata = None
+    if initial_executable is not None:
+        initial_metadata = json.loads(initial_result.read_text())
+        if initial_metadata['workload']['sha256'] != expected['sha256']:
+            raise ValueError('Initial result must describe this exact input')
+        if sha256(initial_executable) != initial_metadata['binary_sha256']['fishy-ops']:
+            raise ValueError('Initial executable differs from its recorded baseline hash')
+        executables['fishy-ops-initial'] = initial_executable
     cache = cache_values(build)
     if not verify_only and cache.get('CMAKE_BUILD_TYPE') != 'Release':
         raise ValueError('Published timing requires a Release build')
@@ -77,7 +85,8 @@ def compare(build, source, rounds, hardware, verify_only=False):
               'expected_sha256': sha256(expected_path),
               'workload': {k: v for k, v in expected.items() if k != 'levels'},
               'binary_sha256': {name: sha256(exe) for name, exe in executables.items()},
-              'validation': checks, 'samples': [], 'summary': {}}
+              'validation': checks, 'samples': [], 'summary': {},
+              'initial_self_commit': initial_metadata['self_commit'] if initial_metadata else None}
     compiler = cache['CMAKE_CXX_COMPILER']
     result['compiler_version'] = subprocess.check_output([compiler, '--version'], text=True).strip()
     if verify_only:
@@ -85,7 +94,8 @@ def compare(build, source, rounds, hardware, verify_only=False):
     for mode in ('decode', 'book'):
         for pair in range(rounds):
             order = list(executables)
-            if pair % 2: order.reverse()
+            rotation = pair % len(order)
+            order = order[rotation:] + order[:rotation]
             for position, engine in enumerate(order):
                 sample = call(executables[engine], source, mode)
                 if sample['messages'] != expected['messages'] or sample['sink'] != checks[engine]['sink']:
@@ -93,6 +103,8 @@ def compare(build, source, rounds, hardware, verify_only=False):
                 if sample['seconds'] <= 0:
                     raise ValueError('Nonpositive duration')
                 sample.pop('levels'); sample.pop('decoded_digest')
+                sample['reported_engine'] = sample['engine']
+                sample['engine'] = engine
                 sample.update(pair=pair, position=position,
                               messages_per_second=sample['messages'] / sample['seconds'])
                 result['samples'].append(sample)
@@ -110,6 +122,14 @@ def compare(build, source, rounds, hardware, verify_only=False):
             ratios.append(entries['fishy-ops'] / entries['bbalouki-itchcpp'])
         summaries['self_over_peer_paired_ratio'] = dict(median=statistics.median(ratios),
                                                        minimum=min(ratios), maximum=max(ratios))
+        if initial_metadata:
+            initial_ratios = []
+            for pair in range(rounds):
+                entries = {s['engine']: s['messages_per_second'] for s in result['samples']
+                           if s['mode'] == mode and s['pair'] == pair}
+                initial_ratios.append(entries['fishy-ops'] / entries['fishy-ops-initial'])
+            summaries['self_over_initial_paired_ratio'] = dict(median=statistics.median(initial_ratios),
+                                                              minimum=min(initial_ratios), maximum=max(initial_ratios))
         result['summary'][mode] = summaries
     return result
 
@@ -121,10 +141,16 @@ if __name__ == '__main__':
     parser.add_argument('--rounds', type=int, default=7)
     parser.add_argument('--hardware', default='unspecified; do not publish without recording hardware')
     parser.add_argument('--verify-only', action='store_true')
+    parser.add_argument('--initial-executable', type=Path)
+    parser.add_argument('--initial-result', type=Path)
     args = parser.parse_args()
     if args.rounds < 3: parser.error('--rounds must be at least 3')
+    if bool(args.initial_executable) != bool(args.initial_result):
+        parser.error('--initial-executable and --initial-result must be used together')
     try:
-        result = compare(args.build.resolve(), args.input.resolve(), args.rounds, args.hardware, args.verify_only)
+        result = compare(args.build.resolve(), args.input.resolve(), args.rounds, args.hardware, args.verify_only,
+                         args.initial_executable.resolve() if args.initial_executable else None,
+                         args.initial_result.resolve() if args.initial_result else None)
     except (ValueError, KeyError, OSError, subprocess.SubprocessError) as error:
         parser.exit(1, f'Comparison rejected: {error}\n')
     args.output.write_text(json.dumps(result, indent=2) + '\n')

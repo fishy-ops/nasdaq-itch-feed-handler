@@ -83,3 +83,23 @@ TEST(Replay, FixtureGeneratorMatchesCommittedBytes) {
     std::string disk((std::istreambuf_iterator<char>(in)), {});
     EXPECT_EQ(disk, generated.str());
 }
+
+TEST(Replay, RegistryLocateIndexCopyMoveAndSparseMaximum) {
+    itch::InstrumentRegistry source;
+    source.apply(itch::decode(fixture::directory(1, "AAPL")));
+    source.apply(itch::decode(fixture::directory(65535, "MSFT")));
+    EXPECT_THROW(source.at(0), std::runtime_error);
+    EXPECT_THROW(source.at(12345), std::runtime_error);
+    auto copy = source;
+    itch::InstrumentRegistry assigned;
+    assigned = source;
+    source.apply(itch::decode(fixture::trading(65535, "MSFT", 'H')));
+    EXPECT_EQ(source.at(65535).state, 'H');
+    EXPECT_EQ(copy.at(65535).state, '?');
+    EXPECT_EQ(assigned.at(65535).state, '?');
+    auto moved = std::move(copy);
+    assigned = std::move(moved);
+    assigned.apply(itch::decode(fixture::trading(1, "AAPL", 'T')));
+    EXPECT_EQ(assigned.at(1).state, 'T');
+    EXPECT_EQ(source.at(1).state, '?');
+}

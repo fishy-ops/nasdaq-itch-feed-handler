@@ -1,8 +1,8 @@
 #include "fixture.hpp"
 #include "itch/decoder.hpp"
 #include "itch/order_book.hpp"
-#include <gtest/gtest.h>
 #include <algorithm>
+#include <gtest/gtest.h>
 #include <random>
 using itch::Level;
 TEST(Book, LifecycleAndPriceOrdering) {
@@ -101,5 +101,44 @@ TEST(Book, GeneratedSequencesMatchIndependentReference) {
             }
         }
         verify();
+    }
+}
+
+TEST(Book, LevelLinksSurviveRehashAndIndependentCopies) {
+    itch::OrderBook original;
+    // Enough IDs to force multiple hash rehashes, sharing levels across symbols.
+    for (std::uint64_t id = 1; id <= 10000; ++id)
+        original.apply(itch::decode(fixture::add(id, 'B', 100, 100, 1)));
+    itch::OrderBook copy = original;
+    itch::OrderBook assigned;
+    assigned.apply(itch::decode(fixture::add(99999, 'S', 1, 900, 2)));
+    assigned = original;
+    for (std::uint64_t id = 1; id <= 10000; ++id) {
+        original.apply(itch::decode(fixture::reduce('X', id, 1)));
+        copy.apply(itch::decode(fixture::erase(id)));
+    }
+    EXPECT_TRUE(copy.depth(1, 'B', 1).empty());
+    EXPECT_EQ(original.depth(1, 'B', 1), (std::vector<Level>{{100, 990000, 10000}}));
+    EXPECT_EQ(assigned.depth(1, 'B', 1), (std::vector<Level>{{100, 1000000, 10000}}));
+    EXPECT_TRUE(assigned.depth(2, 'S', 1).empty());
+    auto *same = &assigned;
+    assigned = *same;
+    EXPECT_EQ(assigned.depth(1, 'B', 1), (std::vector<Level>{{100, 1000000, 10000}}));
+    // Move construction/assignment must preserve links to the transferred maps.
+    auto moved = std::move(assigned);
+    moved.apply(itch::decode(fixture::reduce('E', 1, 50)));
+    copy = std::move(moved);
+    copy.apply(itch::decode(fixture::reduce('E', 1, 50)));
+    EXPECT_EQ(copy.depth(1, 'B', 1), (std::vector<Level>{{100, 999900, 9999}}));
+}
+
+TEST(Book, LastOrderEraseAndSamePriceReplacementKeepLinksValid) {
+    itch::OrderBook book;
+    for (std::uint64_t id = 1; id <= 500; ++id) {
+        book.apply(itch::decode(fixture::add(id * 2, 'B', 100, 100)));
+        book.apply(itch::decode(fixture::replace(id * 2, id * 2 + 1, 75, 100)));
+        book.apply(itch::decode(fixture::reduce('C', id * 2 + 1, 75)));
+        EXPECT_EQ(book.active_orders(), 0);
+        EXPECT_TRUE(book.depth(1, 'B', 1).empty());
     }
 }

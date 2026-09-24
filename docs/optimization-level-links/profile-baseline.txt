@@ -1,0 +1,223 @@
+Analysis of sampling profile_self (pid 8598) every 1 millisecond
+Process:         profile_self [8598]
+Path:            /Users/USER/Documents/*/profile_self
+Load Address:    0x10201c000
+Identifier:      profile_self
+Version:         ???
+Code Type:       ARM64
+Parent Process:  python3.13 [8597]
+Target Type:     live task
+
+Date/Time:       2026-09-24 03:52:03.183 -0500
+Launch Time:     2026-09-24 03:52:03.150 -0500
+OS Version:      macOS 27.0 (26A428)
+Report Version:  7
+Analysis Tool:   /usr/bin/sample
+
+Physical footprint:         40.0M
+Physical footprint (peak):  40.0M
+Idle exit:                  untracked
+----
+
+Call graph:
+    14 Thread_10609633: Main Thread
+    + 11 _dyld_start  (in dyld) + 0  [0x102344bf0]
+    + 1 start  (in dyld) + 3228  [0x1023710fc]
+    + ! 1 dyld4::ExternallyViewableState::createMinimalInfo(lsl::Allocator&, unsigned long long, char const*, unsigned long long, char const*, DyldSharedCache const*)  (in dyld) + 1528  [0x10238ee70]
+    + !   1 dyld4::ExternallyViewableState::triggerNotifications(dyld_image_mode, unsigned int, dyld_image_info const*)  (in dyld) + 304  [0x10238f704]
+    + !     1 dyld4::RemoteNotificationResponder::blockOnSynchronousEvent(unsigned int)  (in dyld) + 48  [0x1023b420c]
+    + !       1 dyld4::RemoteNotificationResponder::sendMessage(int, unsigned int, mach_msg_header_t*)  (in dyld) + 244  [0x1023b3e54]
+    + !         1 mach_msg_overwrite  (in dyld) + 244  [0x1023c07e8]
+    + !           1 mach_msg2_internal  (in dyld) + 76  [0x1023c0640]
+    + !             1 mach_msg2_trap  (in dyld) + 8  [0x10234172c]
+    + 1 start  (in dyld) + 2560  [0x1974fae60]
+    + ! 1 dyld4::ExternallyViewableState::createMinimalInfo(lsl::Allocator&, unsigned long long, char const*, unsigned long long, char const*, DyldSharedCache const*)  (in dyld) + 1528  [0x197518e70]
+    + !   1 dyld4::ExternallyViewableState::triggerNotifications(dyld_image_mode, unsigned int, dyld_image_info const*)  (in dyld) + 304  [0x197519704]
+    + !     1 dyld4::RemoteNotificationResponder::blockOnSynchronousEvent(unsigned int)  (in dyld) + 48  [0x19753e20c]
+    + !       1 dyld4::RemoteNotificationResponder::sendMessage(int, unsigned int, mach_msg_header_t*)  (in dyld) + 244  [0x19753de54]
+    + !         1 mach_msg_overwrite  (in dyld) + 244  [0x19754a7e8]
+    + !           1 mach_msg2_internal  (in dyld) + 76  [0x19754a640]
+    + !             1 mach_msg2_trap  (in dyld) + 8  [0x1974cb72c]
+    + 1 start  (in dyld) + 6596  [0x1974fbe24]
+    +   1 dyld4::start(dyld4::KernelArgs*, void*, void*, unsigned long long)::$_1::operator()() const  (in dyld) + 320  [0x1974fca84]
+    +     1 dyld4::prepare(dyld4::APIs&, mach_o::UnsafeHeader const*)  (in dyld) + 4500  [0x1974fdc34]
+    +       1 dyld4::RuntimeState::notifyDebuggerLoad(std::span<dyld4::Loader const*, 18446744073709551615ul> const&)  (in dyld) + 592  [0x19750e4cc]
+    +         1 dyld4::ExternallyViewableState::addImages(lsl::Allocator&, lsl::Allocator&, std::span<dyld4::ExternallyViewableState::ImageInfo, 18446744073709551615ul> const&)  (in dyld) + 1280  [0x197519ef8]
+    +           1 dyld4::ExternallyViewableState::triggerNotifications(dyld_image_mode, unsigned int, dyld_image_info const*)  (in dyld) + 304  [0x197519704]
+    +             1 dyld4::RemoteNotificationResponder::blockOnSynchronousEvent(unsigned int)  (in dyld) + 48  [0x19753e20c]
+    +               1 dyld4::RemoteNotificationResponder::sendMessage(int, unsigned int, mach_msg_header_t*)  (in dyld) + 244  [0x19753de54]
+    +                 1 mach_msg_overwrite  (in dyld) + 244  [0x19754a7e8]
+    +                   1 mach_msg2_internal  (in dyld) + 76  [0x19754a640]
+    +                     1 mach_msg2_trap  (in dyld) + 8  [0x1974cb72c]
+    2150 Thread_10609633   DispatchQueue_1: com.apple.main-thread  (serial)
+      2150 start  (in dyld) + 6688  [0x1974fbe80]
+        1941 main  (in profile_self) + 356  [0x10201c6ec]
+        ! 1583 itch::Replay::process(itch::Event const&, unsigned long long)  (in profile_self) + 524  [0x102020f9c]
+        ! : 615 itch::OrderBook::reduce(unsigned long long, unsigned int)  (in profile_self) + 332,352,...  [0x10201ee18,0x10201ee2c,...]
+        ! : 493 itch::OrderBook::apply(itch::Event const&)  (in profile_self) + 768  [0x10201f248]
+        ! : | 301 itch::OrderBook::insert(unsigned long long, itch::Order const&)  (in profile_self) + 256,284,...  [0x10201ebf4,0x10201ec10,...]
+        ! : | 161 itch::OrderBook::insert(unsigned long long, itch::Order const&)  (in profile_self) + 444  [0x10201ecb0]
+        ! : | + 117 std::__hash_table<std::__hash_value_type<unsigned long long, itch::Order>>::__emplace_unique_key_args<unsigned long long, unsigned long long&, itch::Order const&>(unsigned long long const&, unsigned long long&, itch::Order const&)  (in profile_self) + 268  [0x10201fbc8]
+        ! : | + ! 107 operator new(unsigned long)  (in libc++abi.dylib) + 52  [0x1978883c0]
+        ! : | + ! : 36 _xzm_xzone_malloc_tiny  (in libsystem_malloc.dylib) + 268,88,...  [0x1976ecb58,0x1976ecaa4,...]
+        ! : | + ! : 21 _xzm_xzone_malloc_freelist_outlined  (in libsystem_malloc.dylib) + 324  [0x1976ee0f8]
+        ! : | + ! : | 10 _xzm_xzone_find_and_malloc_from_freelist_chunk  (in libsystem_malloc.dylib) + 340  [0x1976ee9e4]
+        ! : | + ! : | + 10 _xzm_xzone_malloc_from_freelist_chunk  (in libsystem_malloc.dylib) + 76,176,...  [0x1976ee4ec,0x1976ee550,...]
+        ! : | + ! : | 6 _xzm_xzone_find_and_malloc_from_freelist_chunk  (in libsystem_malloc.dylib) + 160  [0x1976ee930]
+        ! : | + ! : | + 6 _xzm_chunk_list_pop  (in libsystem_malloc.dylib) + 48,72,...  [0x1976ef204,0x1976ef21c,...]
+        ! : | + ! : | 4 _xzm_xzone_find_and_malloc_from_freelist_chunk  (in libsystem_malloc.dylib) + 168,40,...  [0x1976ee938,0x1976ee8b8,...]
+        ! : | + ! : | 1 _xzm_chunk_list_pop  (in libsystem_malloc.dylib) + 224  [0x1976ef2b4]
+        ! : | + ! : 14 _xzm_xzone_malloc_freelist_outlined  (in libsystem_malloc.dylib) + 352,28,...  [0x1976ee114,0x1976edfd0,...]
+        ! : | + ! : 11 malloc_type_malloc  (in libsystem_malloc.dylib) + 16,44,...  [0x1976d774c,0x1976d7768,...]
+        ! : | + ! : 9 _xzm_xzone_malloc_freelist_outlined  (in libsystem_malloc.dylib) + 248  [0x1976ee0ac]
+        ! : | + ! : | 9 _xzm_xzone_malloc_from_freelist_chunk  (in libsystem_malloc.dylib) + 176,28,...  [0x1976ee550,0x1976ee4bc,...]
+        ! : | + ! : 8 <deduplicated_symbol>  (in libsystem_malloc.dylib) + 92,192,...  [0x1976f3864,0x1976f38c8,...]
+        ! : | + ! : 4 _xzm_xzone_find_and_malloc_from_freelist_chunk  (in libsystem_malloc.dylib) + 1892,1900,...  [0x1976eeff4,0x1976eeffc,...]
+        ! : | + ! : 2 _xzm_xzone_malloc_freelist_outlined  (in libsystem_malloc.dylib) + 260  [0x1976ee0b8]
+        ! : | + ! : | 2 _malloc_ulock_self_owner_value  (in libsystem_malloc.dylib) + 4  [0x1976ee884]
+        ! : | + ! : 2 _xzm_xzone_malloc_from_freelist_chunk  (in libsystem_malloc.dylib) + 664,672  [0x1976ee738,0x1976ee740]
+        ! : | + ! 5 ???  (in <unknown binary>)  [0x19f1204fc]
+        ! : | + ! 3 _xzm_xzone_malloc_freelist_outlined  (in libsystem_malloc.dylib) + 828  [0x1976ee2f0]
+        ! : | + ! 1 DYLD-STUB$$operator new(unsigned long)  (in profile_self) + 4  [0x102021c0c]
+        ! : | + ! 1 operator new(unsigned long)  (in libc++abi.dylib) + 36  [0x1978883b0]
+        ! : | + 42 std::__hash_table<std::__hash_value_type<unsigned long long, itch::Order>>::__emplace_unique_key_args<unsigned long long, unsigned long long&, itch::Order const&>(unsigned long long const&, unsigned long long&, itch::Order const&)  (in profile_self) + 120,344,...  [0x10201fb34,0x10201fc14,...]
+        ! : | + 1 operator new(unsigned long)  (in libc++abi.dylib) + 80  [0x1978883dc]
+        ! : | + 1 std::__hash_table<std::__hash_value_type<unsigned long long, itch::Order>>::__emplace_unique_key_args<unsigned long long, unsigned long long&, itch::Order const&>(unsigned long long const&, unsigned long long&, itch::Order const&)  (in profile_self) + 508  [0x10201fcb8]
+        ! : | +   1 std::__hash_table<std::__hash_value_type<unsigned long long, itch::Order>>::__do_rehash<true>(unsigned long)  (in profile_self) + 340  [0x10201ff34]
+        ! : | 20 itch::OrderBook::insert(unsigned long long, itch::Order const&)  (in profile_self) + 320  [0x10201ec34]
+        ! : | + 19 operator new(unsigned long)  (in libc++abi.dylib) + 52  [0x1978883c0]
+        ! : | + ! 14 _xzm_xzone_malloc_tiny  (in libsystem_malloc.dylib) + 268,320,...  [0x1976ecb58,0x1976ecb8c,...]
+        ! : | + ! 2 malloc_type_malloc  (in libsystem_malloc.dylib) + 0  [0x1976d773c]
+        ! : | + ! 1 <deduplicated_symbol>  (in libsystem_malloc.dylib) + 92  [0x1976f3864]
+        ! : | + ! 1 _xzm_xzone_malloc_freelist_outlined  (in libsystem_malloc.dylib) + 248  [0x1976ee0ac]
+        ! : | + ! : 1 _xzm_xzone_malloc_from_freelist_chunk  (in libsystem_malloc.dylib) + 76  [0x1976ee4ec]
+        ! : | + ! 1 _xzm_xzone_malloc_freelist_outlined  (in libsystem_malloc.dylib) + 260  [0x1976ee0b8]
+        ! : | + !   1 _malloc_ulock_self_owner_value  (in libsystem_malloc.dylib) + 4  [0x1976ee884]
+        ! : | + 1 ???  (in <unknown binary>)  [0x19f1204fc]
+        ! : | 8 itch::OrderBook::insert(unsigned long long, itch::Order const&)  (in profile_self) + 376  [0x10201ec6c]
+        ! : | + 8 std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void*>*>(std::__tree_node_base<void*>*, std::__tree_node_base<void*>*)  (in profile_self) + 64,8,...  [0x10201f950,0x10201f918,...]
+        ! : | 3 std::__hash_table<std::__hash_value_type<unsigned long long, itch::Order>>::__emplace_unique_key_args<unsigned long long, unsigned long long&, itch::Order const&>(unsigned long long const&, unsigned long long&, itch::Order const&)  (in profile_self) + 392,388  [0x10201fc44,0x10201fc40]
+        ! : 283 itch::OrderBook::apply(itch::Event const&)  (in profile_self) + 548  [0x10201f16c]
+        ! : | 205 itch::OrderBook::reduce(unsigned long long, unsigned int)  (in profile_self) + 352,332,...  [0x10201ee2c,0x10201ee18,...]
+        ! : | 37 itch::OrderBook::reduce(unsigned long long, unsigned int)  (in profile_self) + 448  [0x10201ee8c]
+        ! : | + 21 _xzm_free_main  (in libsystem_malloc.dylib) + 684,392,...  [0x1976f5168,0x1976f5044,...]
+        ! : | + 12 _free  (in libsystem_malloc.dylib) + 0  [0x1976f9110]
+        ! : | + 3 _xzm_chunk_list_slot_push  (in libsystem_malloc.dylib) + 124  [0x1976f1adc]
+        ! : | + ! 3 _xzm_chunk_list_push  (in libsystem_malloc.dylib) + 96,8  [0x1976ef190,0x1976ef138]
+        ! : | + 1 DYLD-STUB$$operator delete(void*)  (in profile_self) + 4  [0x102021c00]
+        ! : | 17 itch::OrderBook::reduce(unsigned long long, unsigned int)  (in profile_self) + 432  [0x10201ee7c]
+        ! : | + 17 std::__hash_table<std::__hash_value_type<unsigned long long, itch::Order>>::remove(std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<unsigned long long, itch::Order>, void*>*>)  (in profile_self) + 204,68,...  [0x102020454,0x1020203cc,...]
+        ! : | 11 itch::OrderBook::reduce(unsigned long long, unsigned int)  (in profile_self) + 616  [0x10201ef34]
+        ! : | + 11 std::__tree_remove[abi:ne200100]<std::__tree_node_base<void*>*>(std::__tree_node_base<void*>*, std::__tree_node_base<void*>*)  (in profile_self) + 564,0,...  [0x102020208,0x10201ffd4,...]
+        ! : | 8 itch::OrderBook::reduce(unsigned long long, unsigned int)  (in profile_self) + 624  [0x10201ef3c]
+        ! : | + 4 _xzm_free_main  (in libsystem_malloc.dylib) + 392,420,...  [0x1976f5044,0x1976f5060,...]
+        ! : | + 2 _free  (in libsystem_malloc.dylib) + 36,76  [0x1976f9134,0x1976f915c]
+        ! : | + 2 _xzm_chunk_list_slot_push  (in libsystem_malloc.dylib) + 124  [0x1976f1adc]
+        ! : | +   2 _xzm_chunk_list_push  (in libsystem_malloc.dylib) + 20,48  [0x1976ef144,0x1976ef160]
+        ! : | 3 _xzm_free_main  (in libsystem_malloc.dylib) + 1036,1080  [0x1976f52c8,0x1976f52f4]
+        ! : | 1 ???  (in <unknown binary>)  [0x19f1203dc]
+        ! : | 1 _xzm_chunk_list_slot_push  (in libsystem_malloc.dylib) + 272  [0x1976f1b70]
+        ! : 42 itch::OrderBook::apply(itch::Event const&)  (in profile_self) + 404,24,...  [0x10201f0dc,0x10201ef60,...]
+        ! : 40 itch::OrderBook::apply(itch::Event const&)  (in profile_self) + 68  [0x10201ef8c]
+        ! : | 40 itch::OrderBook::apply(itch::Event const&)::$_0::operator()(unsigned long long) const  (in profile_self) + 236,12,...  [0x10201f4dc,0x10201f3fc,...]
+        ! : 31 itch::OrderBook::reduce(unsigned long long, unsigned int)  (in profile_self) + 448  [0x10201ee8c]
+        ! : | 15 _xzm_free_main  (in libsystem_malloc.dylib) + 528,40,...  [0x1976f50cc,0x1976f4ee4,...]
+        ! : | 10 _free  (in libsystem_malloc.dylib) + 0,36,...  [0x1976f9110,0x1976f9134,...]
+        ! : | 4 _xzm_chunk_list_slot_push  (in libsystem_malloc.dylib) + 124  [0x1976f1adc]
+        ! : | + 4 _xzm_chunk_list_push  (in libsystem_malloc.dylib) + 48,12,...  [0x1976ef160,0x1976ef13c,...]
+        ! : | 1 DYLD-STUB$$operator delete(void*)  (in profile_self) + 4  [0x102021c00]
+        ! : | 1 _xzm_chunk_list_push  (in libsystem_malloc.dylib) + 160  [0x1976ef1d0]
+        ! : 27 itch::OrderBook::reduce(unsigned long long, unsigned int)  (in profile_self) + 432  [0x10201ee7c]
+        ! : | 27 std::__hash_table<std::__hash_value_type<unsigned long long, itch::Order>>::remove(std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<unsigned long long, itch::Order>, void*>*>)  (in profile_self) + 68,204,...  [0x1020203cc,0x102020454,...]
+        ! : 18 itch::OrderBook::apply(itch::Event const&)  (in profile_self) + 148  [0x10201efdc]
+        ! : | 18 itch::OrderBook::apply(itch::Event const&)::$_0::operator()(unsigned long long) const  (in profile_self) + 236,32,...  [0x10201f4dc,0x10201f410,...]
+        ! : 16 itch::OrderBook::apply(itch::Event const&)  (in profile_self) + 340  [0x10201f09c]
+        ! : | 16 itch::OrderBook::apply(itch::Event const&)::$_0::operator()(unsigned long long) const  (in profile_self) + 236,12,...  [0x10201f4dc,0x10201f3fc,...]
+        ! : 7 itch::OrderBook::reduce(unsigned long long, unsigned int)  (in profile_self) + 624  [0x10201ef3c]
+        ! : | 5 _xzm_free_main  (in libsystem_malloc.dylib) + 508,392,...  [0x1976f50b8,0x1976f5044,...]
+        ! : | 2 _free  (in libsystem_malloc.dylib) + 0  [0x1976f9110]
+        ! : 3 itch::OrderBook::apply(itch::Event const&)::$_0::operator()(unsigned long long) const  (in profile_self) + 184  [0x10201f4a8]
+        ! : 3 itch::OrderBook::reduce(unsigned long long, unsigned int)  (in profile_self) + 616  [0x10201ef34]
+        ! : | 3 std::__tree_remove[abi:ne200100]<std::__tree_node_base<void*>*>(std::__tree_node_base<void*>*, std::__tree_node_base<void*>*)  (in profile_self) + 156,424,...  [0x102020070,0x10202017c,...]
+        ! : 2 _xzm_free_main  (in libsystem_malloc.dylib) + 1036,1080  [0x1976f52c8,0x1976f52f4]
+        ! : 1 ???  (in <unknown binary>)  [0x19f1203dc]
+        ! : 1 _xzm_chunk_list_slot_push  (in libsystem_malloc.dylib) + 272  [0x1976f1b70]
+        ! : 1 itch::OrderBook::insert(unsigned long long, itch::Order const&)  (in profile_self) + 460  [0x10201ecc0]
+        ! 264 itch::Replay::process(itch::Event const&, unsigned long long)  (in profile_self) + 272  [0x102020ea0]
+        ! : 264 itch::InstrumentRegistry::at(unsigned short) const  (in profile_self) + 48,24,...  [0x1020204f0,0x1020204d8,...]
+        ! 52 itch::Replay::process(itch::Event const&, unsigned long long)  (in profile_self) + 92,104,...  [0x102020dec,0x102020df8,...]
+        ! 16 itch::InstrumentRegistry::apply(itch::Event const&)  (in profile_self) + 948,944  [0x10202090c,0x102020908]
+        ! 12 itch::Replay::process(itch::Event const&, unsigned long long)  (in profile_self) + 244  [0x102020e84]
+        ! : 12 itch::InstrumentRegistry::apply(itch::Event const&)  (in profile_self) + 44,60,...  [0x102020584,0x102020594,...]
+        ! 7 itch::Replay::process(itch::Event const&, unsigned long long)  (in profile_self) + 368  [0x102020f00]
+        ! : 6 _platform_memcmp  (in libsystem_platform.dylib) + 260,180,...  [0x1978d9274,0x1978d9224,...]
+        ! : 1 DYLD-STUB$$memcmp  (in profile_self) + 4  [0x102021c84]
+        ! 3 itch::OrderBook::reduce(unsigned long long, unsigned int)  (in profile_self) + 456  [0x10201ee94]
+        ! 2 itch::InstrumentRegistry::at(unsigned short) const  (in profile_self) + 76  [0x10202050c]
+        ! 2 itch::OrderBook::apply(itch::Event const&)  (in profile_self) + 776  [0x10201f250]
+        142 main  (in profile_self) + 332  [0x10201c6d4]
+        ! 141 itch::decode(std::span<unsigned char const, 18446744073709551615ul>, unsigned long long)  (in profile_self) + 296,260,...  [0x10201db60,0x10201db3c,...]
+        ! 1 itch::decode(std::span<unsigned char const, 18446744073709551615ul>, unsigned long long)  (in profile_self) + 3292  [0x10201e714]
+        !   1 decltype(auto) std::__variant_detail::__visitation::__base::__dispatcher<7ul>::__dispatch[abi:ne200100]<std::__variant_detail::__dtor<std::__variant_detail::__traits<itch::Directory, itch::System, itch::TradingAction, itch::Add, itch::Reduce, itch::Delete, itch::Replace, itch::Unsupported>, (std::__variant_detail::_Trait)1>::__destroy[abi:ne200100]()::'lambda'(auto&)&&, std::__variant_detail::__base<(std::__variant_detail::_Trait)1, itch::Directory, itch::System, itch::TradingAction, itch::Add, itch::Reduce, itch::Delete, itch::Replace, itch::Unsupported>&>(auto, std::__variant_detail::__base<(std::__variant_detail::_Trait)1, itch::Directory, itch::System, itch::TradingAction, itch::Add, itch::Reduce, itch::Delete, itch::Replace, itch::Unsupported>&)  (in profile_self) + 0  [0x10201d324]
+        33 main  (in profile_self) + 384  [0x10201c708]
+        ! 18 decltype(auto) std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispatch[abi:ne200100]<std::__variant_detail::__dtor<std::__variant_detail::__traits<itch::Directory, itch::System, itch::TradingAction, itch::Add, itch::Reduce, itch::Delete, itch::Replace, itch::Unsupported>, (std::__variant_detail::_Trait)1>::__destroy[abi:ne200100]()::'lambda'(auto&)&&, std::__variant_detail::__base<(std::__variant_detail::_Trait)1, itch::Directory, itch::System, itch::TradingAction, itch::Add, itch::Reduce, itch::Delete, itch::Replace, itch::Unsupported>&>(auto, std::__variant_detail::__base<(std::__variant_detail::_Trait)1, itch::Directory, itch::System, itch::TradingAction, itch::Add, itch::Reduce, itch::Delete, itch::Replace, itch::Unsupported>&)  (in profile_self) + 0,16  [0x10201d2cc,0x10201d2dc]
+        ! 9 decltype(auto) std::__variant_detail::__visitation::__base::__dispatcher<6ul>::__dispatch[abi:ne200100]<std::__variant_detail::__dtor<std::__variant_detail::__traits<itch::Directory, itch::System, itch::TradingAction, itch::Add, itch::Reduce, itch::Delete, itch::Replace, itch::Unsupported>, (std::__variant_detail::_Trait)1>::__destroy[abi:ne200100]()::'lambda'(auto&)&&, std::__variant_detail::__base<(std::__variant_detail::_Trait)1, itch::Directory, itch::System, itch::TradingAction, itch::Add, itch::Reduce, itch::Delete, itch::Replace, itch::Unsupported>&>(auto, std::__variant_detail::__base<(std::__variant_detail::_Trait)1, itch::Directory, itch::System, itch::TradingAction, itch::Add, itch::Reduce, itch::Delete, itch::Replace, itch::Unsupported>&)  (in profile_self) + 0  [0x10201d320]
+        ! 4 decltype(auto) std::__variant_detail::__visitation::__base::__dispatcher<5ul>::__dispatch[abi:ne200100]<std::__variant_detail::__dtor<std::__variant_detail::__traits<itch::Directory, itch::System, itch::TradingAction, itch::Add, itch::Reduce, itch::Delete, itch::Replace, itch::Unsupported>, (std::__variant_detail::_Trait)1>::__destroy[abi:ne200100]()::'lambda'(auto&)&&, std::__variant_detail::__base<(std::__variant_detail::_Trait)1, itch::Directory, itch::System, itch::TradingAction, itch::Add, itch::Reduce, itch::Delete, itch::Replace, itch::Unsupported>&>(auto, std::__variant_detail::__base<(std::__variant_detail::_Trait)1, itch::Directory, itch::System, itch::TradingAction, itch::Add, itch::Reduce, itch::Delete, itch::Replace, itch::Unsupported>&)  (in profile_self) + 0  [0x10201d31c]
+        ! 2 decltype(auto) std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispatch[abi:ne200100]<std::__variant_detail::__dtor<std::__variant_detail::__traits<itch::Directory, itch::System, itch::TradingAction, itch::Add, itch::Reduce, itch::Delete, itch::Replace, itch::Unsupported>, (std::__variant_detail::_Trait)1>::__destroy[abi:ne200100]()::'lambda'(auto&)&&, std::__variant_detail::__base<(std::__variant_detail::_Trait)1, itch::Directory, itch::System, itch::TradingAction, itch::Add, itch::Reduce, itch::Delete, itch::Replace, itch::Unsupported>&>(auto, std::__variant_detail::__base<(std::__variant_detail::_Trait)1, itch::Directory, itch::System, itch::TradingAction, itch::Add, itch::Reduce, itch::Delete, itch::Replace, itch::Unsupported>&)  (in profile_self) + 0  [0x10201d318]
+        11 main  (in profile_self) + 272,256,...  [0x10201c698,0x10201c688,...]
+        9 itch::decode(std::span<unsigned char const, 18446744073709551615ul>, unsigned long long)  (in profile_self) + 3256,3244,...  [0x10201e6f0,0x10201e6e4,...]
+        6 itch::Replay::process(itch::Event const&, unsigned long long)  (in profile_self) + 500  [0x102020f84]
+        6 main  (in profile_self) + 52  [0x10201c5bc]
+        ! 5 comparison::load(char const*)  (in profile_self) + 224  [0x10201c9e0]
+        ! : 5 std::basic_istream<char>::read(char*, long)  (in libc++.1.dylib) + 136  [0x1977e1db0]
+        ! :   5 std::basic_streambuf<char>::xsgetn(char*, long)  (in libc++.1.dylib) + 156  [0x1977e1f20]
+        ! :     5 std::basic_streambuf<char>::uflow()  (in libc++.1.dylib) + 48  [0x1977e1f8c]
+        ! :       5 std::basic_filebuf<char>::underflow()  (in libc++.1.dylib) + 316  [0x19781393c]
+        ! :         5 fread  (in libsystem_c.dylib) + 136  [0x19776e3a4]
+        ! :           5 __fread  (in libsystem_c.dylib) + 492  [0x197765750]
+        ! :             5 __srefill1  (in libsystem_c.dylib) + 36  [0x19776549c]
+        ! :               5 _sread  (in libsystem_c.dylib) + 32  [0x197765508]
+        ! :                 5 __sread  (in libsystem_c.dylib) + 24  [0x197788e7c]
+        ! :                   5 __read_nocancel  (in libsystem_kernel.dylib) + 8,4  [0x19788eca8,0x19788eca4]
+        ! 1 comparison::load(char const*)  (in profile_self) + 156  [0x10201c99c]
+        !   1 __bzero  (in libsystem_platform.dylib) + 64  [0x1978dba70]
+        1 decltype(auto) std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispatch[abi:ne200100]<std::__variant_detail::__dtor<std::__variant_detail::__traits<itch::Directory, itch::System, itch::TradingAction, itch::Add, itch::Reduce, itch::Delete, itch::Replace, itch::Unsupported>, (std::__variant_detail::_Trait)1>::__destroy[abi:ne200100]()::'lambda'(auto&)&&, std::__variant_detail::__base<(std::__variant_detail::_Trait)1, itch::Directory, itch::System, itch::TradingAction, itch::Add, itch::Reduce, itch::Delete, itch::Replace, itch::Unsupported>&>(auto, std::__variant_detail::__base<(std::__variant_detail::_Trait)1, itch::Directory, itch::System, itch::TradingAction, itch::Add, itch::Reduce, itch::Delete, itch::Replace, itch::Unsupported>&)  (in profile_self) + 36  [0x10201d2f0]
+        1 main  (in profile_self) + 436  [0x10201c73c]
+          1 _xzm_free_main  (in libsystem_malloc.dylib) + 276  [0x1976f4fd0]
+
+Total number in stack (recursive counted multiple, when >=5):
+        7       _xzm_free_main  (in libsystem_malloc.dylib) + 0  [0x1976f4ebc]
+
+Sort by top of stack, same collapsed (when >= 5):
+        itch::OrderBook::reduce(unsigned long long, unsigned int)  (in profile_self)        823
+        itch::OrderBook::insert(unsigned long long, itch::Order const&)  (in profile_self)        302
+        itch::InstrumentRegistry::at(unsigned short) const  (in profile_self)        266
+        itch::decode(std::span<unsigned char const, 18446744073709551615ul>, unsigned long long)  (in profile_self)        150
+        itch::OrderBook::apply(itch::Event const&)::$_0::operator()(unsigned long long) const  (in profile_self)        77
+        itch::Replay::process(itch::Event const&, unsigned long long)  (in profile_self)        58
+        _xzm_free_main  (in libsystem_malloc.dylib)        51
+        _xzm_xzone_malloc_tiny  (in libsystem_malloc.dylib)        50
+        std::__hash_table<std::__hash_value_type<unsigned long long, itch::Order>>::__emplace_unique_key_args<unsigned long long, unsigned long long&, itch::Order const&>(unsigned long long const&, unsigned long long&, itch::Order const&)  (in profile_self)        45
+        itch::OrderBook::apply(itch::Event const&)  (in profile_self)        44
+        std::__hash_table<std::__hash_value_type<unsigned long long, itch::Order>>::remove(std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<unsigned long long, itch::Order>, void*>*>)  (in profile_self)        44
+        itch::InstrumentRegistry::apply(itch::Event const&)  (in profile_self)        28
+        _free  (in libsystem_malloc.dylib)        26
+        _xzm_xzone_malloc_from_freelist_chunk  (in libsystem_malloc.dylib)        22
+        decltype(auto) std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispatch[abi:ne200100]<std::__variant_detail::__dtor<std::__variant_detail::__traits<itch::Directory, itch::System, itch::TradingAction, itch::Add, itch::Reduce, itch::Delete, itch::Replace, itch::Unsupported>, (std::__variant_detail::_Trait)1>::__destroy[abi:ne200100]()::'lambda'(auto&)&&, std::__variant_detail::__base<(std::__variant_detail::_Trait)1, itch::Directory, itch::System, itch::TradingAction, itch::Add, itch::Reduce, itch::Delete, itch::Replace, itch::Unsupported>&>(auto, std::__variant_detail::__base<(std::__variant_detail::_Trait)1, itch::Directory, itch::System, itch::TradingAction, itch::Add, itch::Reduce, itch::Delete, itch::Replace, itch::Unsupported>&)  (in profile_self)        19
+        _xzm_xzone_malloc_freelist_outlined  (in libsystem_malloc.dylib)        17
+        std::__tree_remove[abi:ne200100]<std::__tree_node_base<void*>*>(std::__tree_node_base<void*>*, std::__tree_node_base<void*>*)  (in profile_self)        14
+        malloc_type_malloc  (in libsystem_malloc.dylib)        13
+        _dyld_start  (in dyld)        11
+        main  (in profile_self)        11
+        _xzm_chunk_list_push  (in libsystem_malloc.dylib)        10
+        <deduplicated_symbol>  (in libsystem_malloc.dylib)        9
+        decltype(auto) std::__variant_detail::__visitation::__base::__dispatcher<6ul>::__dispatch[abi:ne200100]<std::__variant_detail::__dtor<std::__variant_detail::__traits<itch::Directory, itch::System, itch::TradingAction, itch::Add, itch::Reduce, itch::Delete, itch::Replace, itch::Unsupported>, (std::__variant_detail::_Trait)1>::__destroy[abi:ne200100]()::'lambda'(auto&)&&, std::__variant_detail::__base<(std::__variant_detail::_Trait)1, itch::Directory, itch::System, itch::TradingAction, itch::Add, itch::Reduce, itch::Delete, itch::Replace, itch::Unsupported>&>(auto, std::__variant_detail::__base<(std::__variant_detail::_Trait)1, itch::Directory, itch::System, itch::TradingAction, itch::Add, itch::Reduce, itch::Delete, itch::Replace, itch::Unsupported>&)  (in profile_self)        9
+        _xzm_xzone_find_and_malloc_from_freelist_chunk  (in libsystem_malloc.dylib)        8
+        std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void*>*>(std::__tree_node_base<void*>*, std::__tree_node_base<void*>*)  (in profile_self)        8
+        _xzm_chunk_list_pop  (in libsystem_malloc.dylib)        7
+        ???  (in <unknown binary>)  [0x19f1204fc]        6
+        _platform_memcmp  (in libsystem_platform.dylib)        6
+        __read_nocancel  (in libsystem_kernel.dylib)        5
+
+Binary images description not available
+
